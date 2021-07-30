@@ -11,9 +11,9 @@
           "architecture": "esp32",
           "version": "1.0.0",
           "category": "ESP32",
-          "url": "https://github.com/InterstitialTech/automato-code/raw/main/automato-1.0.0.zip",
-          "archiveFileName": "automato-1.0.0.zip",
-          "checksum": "SHA-256:7524A4BBCD7369A2D73BCB0E8E8C810D5B148D3EF1F10B506DB85FFD76B02B1F",
+          "url": "https://github.com/InterstitialTech/automato-arduino/releases/download/v0.0.0-alpha/automato-0.0.0.zip",
+          "archiveFileName": "automato-0.0.0.zip",
+          "checksum": "SHA-256:E28FFA03DF2ECFD8614C0D2F3C5E2E1DF3406329F780EF5959AE54B7F848E2F5",
           "size": "51289327",
           "help": {
             "online": ""
