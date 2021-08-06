@@ -18,7 +18,7 @@ void setup()
   pinMode(PIN_LORA_RST, INPUT); // Let the pin float.
   pinMode(PIN_LED, OUTPUT);
 
-  // Disable other SPI devices.
+  // Disable SPI devices until needed.
   pinMode(PIN_LCD_CS, OUTPUT);
   digitalWrite(PIN_LCD_CS, HIGH);
   pinMode(PIN_TCH_CS, OUTPUT);
@@ -27,8 +27,9 @@ void setup()
   digitalWrite(PIN_SD_CS, HIGH);
 
   
-  Serial.begin(9600);
-  //while (!Serial) ; // Wait for serial port to be available
+  Serial.begin(115200);
+  //while (!Serial); // Wait for serial port to be available
+  Serial.println("Initializing LoRa"); 
   if (!rf95.init())
     Serial.println("init failed");  
   // Defaults after init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
@@ -46,15 +47,17 @@ void loop()
     // Should be a message for us now   
     uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(buf);
+    float temp_data;
     if (rf95.recv(buf, &len))
     {
+      memcpy(&temp_data, buf, sizeof(temp_data));
       digitalWrite(PIN_LED, HIGH);
-      Serial.print("got request: ");
-      Serial.println((char*)buf);
+      Serial.print("got data: ");
+      Serial.println(temp_data);
       
       // Send a reply
-      uint8_t data[] = "And hello back to you";
-      rf95.send(data, sizeof(data));
+      uint8_t ack[] = "ACK";
+      rf95.send(ack, sizeof(ack));
       rf95.waitPacketSent();
       Serial.println("Sent a reply");
        digitalWrite(PIN_LED, LOW);

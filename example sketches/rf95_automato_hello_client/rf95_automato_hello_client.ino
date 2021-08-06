@@ -24,8 +24,9 @@ void setup()
   pinMode(PIN_SD_CS, OUTPUT);
   digitalWrite(PIN_SD_CS, HIGH);
   
-  Serial.begin(9600);
+  Serial.begin(115200);
   //while (!Serial) ; // Wait for serial port to be available
+  Serial.println("Initializing LoRa"); 
   if (!rf95.init())
     Serial.println("init failed");
   // Defaults after init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
@@ -40,8 +41,8 @@ void loop()
 {
   Serial.println("Sending to rf95_server");
   // Send a message to rf95_server
-  uint8_t data[] = "Hello World!";
-  rf95.send(data, sizeof(data));
+  float sample_data = 1.23;
+  rf95.send((uint8_t*)&sample_data, sizeof(sample_data));
   
   rf95.waitPacketSent();
   // Now wait for a reply
