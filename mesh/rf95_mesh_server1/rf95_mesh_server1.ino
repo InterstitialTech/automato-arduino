@@ -23,11 +23,12 @@
 //              Raspberry Pi mods influenced by nrf24 example by Mike Poublon,
 //              and Charles-Henri Hallard (https://github.com/hallard/RadioHead)
 
-#include <pigpio.h>
-#include <stdio.h>
-#include <signal.h>
-#include <unistd.h>
+// #include <pigpio.h>
+// #include <stdio.h>
+// #include <signal.h>
+// #include <unistd.h>
 
+#include <SPI.h>
 #include <RHMesh.h>
 #include <RH_RF95.h>
 
@@ -52,7 +53,8 @@ void sig_handler(int sig);
 #define RFM95_TXPOWER 14
 
 // Singleton instance of the radio driver
-RH_RF95 rf95(RFM95_CS_PIN, RFM95_IRQ_PIN);
+// RH_RF95 rf95(RFM95_CS_PIN, RFM95_IRQ_PIN);
+RH_RF95 rf95(PIN_LORA_CS, PIN_LORA_IRQ); // Slave select, interrupt pin for Automato Sensor Module.
 
 // Class to manage message delivery and receipt, using the driver declared above
 RHMesh manager(rf95, SERVER1_ADDRESS);
@@ -60,59 +62,83 @@ RHMesh manager(rf95, SERVER1_ADDRESS);
 //Flag for Ctrl-C
 int flag = 0;
 
-//Main Function
-int main (int argc, const char* argv[] )
+void setup() 
 {
-  if (gpioInitialise()<0)
-  {
-    printf( "\n\nRPI rf95_mesh_server1 startup Failed.\n" );
-    return 1;
-  }
+  pinMode(PIN_LORA_RST, INPUT); // Let the pin float.
 
-  gpioSetSignalFunc(2, sig_handler); //2 is SIGINT. Ctrl+C will cause signal.
+  // Disable other SPI devices.
+  pinMode(PIN_LCD_CS, OUTPUT);
+  digitalWrite(PIN_LCD_CS, HIGH);
+  pinMode(PIN_TCH_CS, OUTPUT);
+  digitalWrite(PIN_TCH_CS, HIGH);
+  pinMode(PIN_SD_CS, OUTPUT);
+  digitalWrite(PIN_SD_CS, HIGH);
+  
+  Serial.begin(115200);
+  //while (!Serial) ; // Wait for serial port to be available
+  Serial.println("Initializing LoRa"); 
+  if (!rf95.init())
+    Serial.println("init failed");
+  // Defaults after init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
+  rf95.setFrequency(915.0);
 
-  printf( "\nRPI rf95_mesh_server1 startup OK.\n" );
+  // The default transmitter power is 13dBm, using PA_BOOST.
+  // You can set transmitter powers from 5 to 23 dBm:
+  //  driver.setTxPower(23);
 
-#ifdef RFM95_LED
-  gpioSetMode(RFM95_LED, PI_OUTPUT);
-  printf("\nINFO: LED on GPIO %d\n", (uint8_t) RFM95_LED);
-  gpioWrite(RFM95_LED, PI_ON);
-  gpioDelay(500000);
-  gpioWrite(RFM95_LED, PI_OFF);
-#endif
 
   if (!manager.init())
   {
-    printf( "\n\nMesh Manager Failed to initialize.\n\n" );
-    return 1;
+    Serial.println( "\n\nMesh Manager Failed to initialize.\n\n" );
+    // return 1;
   }
 
   /* Begin Manager/Driver settings code */
-  printf("\nRFM 95 Settings:\n");
-  printf("Frequency= %d MHz\n", (uint16_t) RFM95_FREQUENCY);
-  printf("Power= %d\n", (uint8_t) RFM95_TXPOWER);
-  printf("Client Address= %d\n", CLIENT_ADDRESS);
-  printf("Server(This) Address 1= %d\n", SERVER1_ADDRESS);
-  printf("Server Address 2= %d\n", SERVER2_ADDRESS);
-  printf("Server Address 3= %d\n", SERVER3_ADDRESS);
-  printf("Route: Client->Server 3 is automatic in MESH.\n");
+  Serial.println("RFM 95 Settings:");
+
+  Serial.print("Frequency="); 
+  Serial.print(RFM95_FREQUENCY);
+  Serial.println("MHz\n");
+
+  Serial.print("Power= ");
+  Serial.println(RFM95_TXPOWER);
+
+  Serial.print("Client Address= ");
+  Serial.println(CLIENT_ADDRESS);
+  
+  Serial.print("Server(This) Address 1= ");
+  Serial.println( SERVER1_ADDRESS);
+
+  Serial.print("Server Address 2= ");
+  Serial.println( SERVER2_ADDRESS);
+
+  Serial.print("Server Address 3= ");
+  Serial.println( SERVER3_ADDRESS);
+
+  Serial.println("Route: Client->Server 3 is automatic in MESH.\n");
+
   rf95.setTxPower(RFM95_TXPOWER, false);
   rf95.setFrequency(RFM95_FREQUENCY);
   /* End Manager/Driver settings code */
 
-  uint8_t data[] = "And hello back to you from server1";
-  // Dont put this on the stack:
-  uint8_t buf[RH_MESH_MAX_MESSAGE_LEN];
+  Serial.println( "\nRPI rf95_mesh_client startup OK.\n" );
 
-  while(!flag)
-  {
+}
+
+uint8_t data[] = "And hello back to you from server1";
+// Dont put this on the stack:
+uint8_t buf[RH_MESH_MAX_MESSAGE_LEN];
+
+//Main Function
+void loop ()
+{
     uint8_t len = sizeof(buf);
     uint8_t from;
     if (manager.recvfromAck(buf, &len, &from))
     {
-#ifdef RFM95_LED
-      gpioWrite(RFM95_LED, PI_ON);
-#endif
+// #ifdef RFM95_LED
+//       gpioWrite(RFM95_LED, PI_ON);
+// ndif
       Serial.print("got request from : 0x");
       Serial.print(from, HEX);
       Serial.print(": ");
@@ -121,16 +147,16 @@ int main (int argc, const char* argv[] )
       // Send a reply back to the originator client
       if (manager.sendtoWait(data, sizeof(data), from) != RH_ROUTER_ERROR_NONE)
         Serial.println("sendtoWait failed");
-#ifdef RFM95_LED
-      gpioWrite(RFM95_LED, PI_OFF);
-#endif
+// #ifdef RFM95_LED
+//       gpioWrite(RFM95_LED, PI_OFF);
+// #endif
     }
-  }
-
-  printf( "\nrf95_mesh_server1 Tester Ending\n" );
-  gpioTerminate();
-  return 0;
 }
+
+  // printf( "\nrf95_mesh_server1 Tester Ending\n" );
+  // gpioTerminate();
+  // return 0;
+
 
 void sig_handler(int sig)
 {
