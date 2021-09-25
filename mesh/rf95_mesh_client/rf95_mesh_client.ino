@@ -40,9 +40,9 @@
 void sig_handler(int sig);
 
 //Pin Definitions
-#define RFM95_CS_PIN 8
-#define RFM95_IRQ_PIN 25
-#define RFM95_LED 4
+// #define RFM95_CS_PIN 8
+// #define RFM95_IRQ_PIN 25
+// #define RFM95_LED 4
 
 // In this small artifical network of 4 nodes,
 #define CLIENT_ADDRESS 1
