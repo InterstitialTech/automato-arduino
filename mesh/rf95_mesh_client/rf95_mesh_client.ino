@@ -158,14 +158,14 @@ void loop ()
   // while(!flag)
   // {
 
-    Serial.println("Sending to manager_mesh_server3");
+    Serial.println("Sending to manager_mesh_server1");
 // #ifdef RFM95_LED
 //     gpioWrite(RFM95_LED, PI_ON);
 // #endif
 
     // Send a message to a rf95_mesh_server
     // A route to the destination will be automatically discovered.
-    if (manager.sendtoWait(data, sizeof(data), SERVER3_ADDRESS) == RH_ROUTER_ERROR_NONE)
+    if (manager.sendtoWait(data, sizeof(data), SERVER1_ADDRESS) == RH_ROUTER_ERROR_NONE)
     {
       // It has been reliably delivered to the next node.
       // Now wait for a reply from the ultimate server
