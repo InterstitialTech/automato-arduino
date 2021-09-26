@@ -1,4 +1,4 @@
-// rf95_mesh_server1.cpp
+// rf95_mesh_server1.ino
 // -*- mode: C++ -*-
 // Example sketch showing how to create a simple addressed, routed reliable messaging server
 // with the RHMesh class.
@@ -8,25 +8,12 @@
 
 // Mesh has much greater memory requirements, and you may need to limit the
 // max message length to prevent wierd crashes
-//
-// Requires Pigpio GPIO library. Install by downloading and compiling from
-// http://abyz.me.uk/rpi/pigpio/, or install via command line with 
-// "sudo apt install pigpio". To use, run "make" at the command line in 
-// the folder where this source code resides. Then execute application with
-// sudo ./rf95_mesh_server1.
-// Tested on Raspberry Pi Zero and Zero W with LoRaWan/TTN RPI Zero Shield 
-// by ElectronicTricks. Although this application builds and executes on
-// Raspberry Pi 3, there seems to be missed messages and hangs.
-// Strategically adding delays does seem to help in some cases.
 
 //(9/20/2019)   Contributed by Brody M. Based off rf22_mesh_server1.pde.
 //              Raspberry Pi mods influenced by nrf24 example by Mike Poublon,
 //              and Charles-Henri Hallard (https://github.com/hallard/RadioHead)
 
-// #include <pigpio.h>
-// #include <stdio.h>
-// #include <signal.h>
-// #include <unistd.h>
+// (9/26/2021)  ported for Automato from the rpi version
 
 #include <SPI.h>
 #include <RHMesh.h>
@@ -36,11 +23,6 @@
 
 //Function Definitions
 void sig_handler(int sig);
-
-//Pin Definitions
-// #define RFM95_CS_PIN 8
-// #define RFM95_IRQ_PIN 25
-// #define RFM95_LED 4
 
 // In this small artifical network of 4 nodes,
 #define CLIENT_ADDRESS 1
@@ -53,7 +35,6 @@ void sig_handler(int sig);
 #define RFM95_TXPOWER 14
 
 // Singleton instance of the radio driver
-// RH_RF95 rf95(RFM95_CS_PIN, RFM95_IRQ_PIN);
 RH_RF95 rf95(PIN_LORA_CS, PIN_LORA_IRQ); // Slave select, interrupt pin for Automato Sensor Module.
 
 // Class to manage message delivery and receipt, using the driver declared above
@@ -66,7 +47,7 @@ void setup()
 {
   pinMode(PIN_LORA_RST, INPUT); // Let the pin float.
 
-  // Disable other SPI devices.
+  // Disable other automato SPI devices.
   pinMode(PIN_LCD_CS, OUTPUT);
   digitalWrite(PIN_LCD_CS, HIGH);
   pinMode(PIN_TCH_CS, OUTPUT);
@@ -85,7 +66,6 @@ void setup()
   // The default transmitter power is 13dBm, using PA_BOOST.
   // You can set transmitter powers from 5 to 23 dBm:
   //  driver.setTxPower(23);
-
 
   if (!manager.init())
   {
@@ -121,7 +101,7 @@ void setup()
   rf95.setFrequency(RFM95_FREQUENCY);
   /* End Manager/Driver settings code */
 
-  Serial.println( "\nRPI rf95_mesh_client startup OK.\n" );
+  Serial.println( "\nrf95_mesh_client startup OK.\n" );
 
 }
 
@@ -136,9 +116,6 @@ void loop ()
     uint8_t from;
     if (manager.recvfromAck(buf, &len, &from))
     {
-// #ifdef RFM95_LED
-//       gpioWrite(RFM95_LED, PI_ON);
-// ndif
       Serial.print("got request from : 0x");
       Serial.print(from, HEX);
       Serial.print(": ");
@@ -147,18 +124,6 @@ void loop ()
       // Send a reply back to the originator client
       if (manager.sendtoWait(data, sizeof(data), from) != RH_ROUTER_ERROR_NONE)
         Serial.println("sendtoWait failed");
-// #ifdef RFM95_LED
-//       gpioWrite(RFM95_LED, PI_OFF);
-// #endif
     }
 }
 
-  // printf( "\nrf95_mesh_server1 Tester Ending\n" );
-  // gpioTerminate();
-  // return 0;
-
-
-void sig_handler(int sig)
-{
-  flag=1;
-}
