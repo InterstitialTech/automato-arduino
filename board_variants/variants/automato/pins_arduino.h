@@ -43,6 +43,7 @@ static const uint8_t PIN_TCH_IRQ = 17;
 
 // Other board-specific
 static const uint8_t PIN_LED = 26;
+#define LED_BUILTIN PIN_LED
 static const uint8_t SW_PUSH = 0;
 
 // ESP32 generic
