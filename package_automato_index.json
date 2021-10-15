@@ -20,12 +20,6 @@
           },
           "boards": [
             {
-              "name": "ESP32 Dev Module"
-            },
-            {
-              "name": "ESP32 Wrover Module"
-            },
-            {
               "name": "Automato Sensor Module"
             }
           ],
