@@ -9,7 +9,7 @@
         {
           "name": "Automato Sensor Module (ESP32-based)",
           "architecture": "esp32",
-          "version": "0.0.1",
+          "version": "0.0.2",
           "category": "ESP32",
           "url": "https://github.com/InterstitialTech/automato-arduino/releases/download/v0.0.1-alpha/automato-0.0.1.zip",
           "archiveFileName": "automato-0.0.1.zip",
