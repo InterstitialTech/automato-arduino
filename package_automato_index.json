@@ -11,7 +11,7 @@
           "architecture": "esp32",
           "version": "0.0.2",
           "category": "ESP32",
-          "url": "https://github.com/chronopoulos/automato-arduino/releases/download/v0.0.2/automato-arduino_package-v0.0.2.zip",
+          "url": "https://github.com/InterstitialTech/automato-arduino/releases/download/v0.0.2/automato-arduino_package-v0.0.2.zip",
           "archiveFileName": "automato-arduino_package-v0.0.2.zip",
           "checksum": "SHA-256:95359142570bef477bdeb72632accaeedb6dfe12e6488ff2d5716ad673b8e5ec",
           "size": "48378782",
