@@ -1,0 +1,145 @@
+# Automato Boards Definition
+# Based on ESP32-C6-MINI-1 module
+
+##############################################################
+
+automato_brain.name=Automato Brain Board
+
+# TODO determine/confirm
+#automato_brain.vid.0=0x303a
+#automato_brain.pid.0=0x1001
+
+automato_brain.bootloader.tool=esptool_py
+automato_brain.bootloader.tool.default=esptool_py
+
+automato_brain.upload.tool=esptool_py
+automato_brain.upload.tool.default=esptool_py
+automato_brain.upload.tool.network=esp_ota
+
+# TODO determine/confirm
+automato_brain.upload.maximum_size=4194304
+automato_brain.upload.maximum_data_size=512000
+automato_brain.upload.flags=
+automato_brain.upload.extra_flags=
+automato_brain.upload.use_1200bps_touch=false
+automato_brain.upload.wait_for_upload_port=false
+
+automato_brain.serial.disableDTR=false
+automato_brain.serial.disableRTS=false
+
+automato_brain.build.tarch=riscv32
+automato_brain.build.bootloader_addr=0x0
+automato_brain.build.target=esp32c6
+automato_brain.build.mcu=esp32c6
+automato_brain.build.core=esp32
+automato_brain.build.variant=automato_brain
+automato_brain.build.board=AUTOMATO_BRAIN
+
+automato_brain.build.f_cpu=160000000L
+automato_brain.build.flash_size=4MB
+automato_brain.build.flash_freq=80m
+automato_brain.build.flash_mode=qio
+automato_brain.build.boot=qio
+automato_brain.build.partitions=default
+
+# TODO confirm
+automato_brain.build.defines=-DARDUINO_RUNNING_CORE=0 -DARDUINO_EVENT_RUNNING_CORE=0
+
+# Menu: Flash Size
+automato_brain.menu.FlashSize.4M=4MB (32Mb)
+automato_brain.menu.FlashSize.4M.build.flash_size=4MB
+
+# Menu: Partition Scheme
+automato_brain.menu.PartitionScheme.default=Default 4MB with spiffs (1.2MB APP/1.5MB SPIFFS)
+automato_brain.menu.PartitionScheme.default.build.partitions=default
+automato_brain.menu.PartitionScheme.defaultffat=Default 4MB with ffat (1.2MB APP/1.5MB FATFS)
+automato_brain.menu.PartitionScheme.defaultffat.build.partitions=default_ffat
+automato_brain.menu.PartitionScheme.default_8MB=8M with spiffs (3MB APP/1.5MB SPIFFS)
+automato_brain.menu.PartitionScheme.default_8MB.build.partitions=default_8MB
+automato_brain.menu.PartitionScheme.minimal=Minimal (1.3MB APP/700KB SPIFFS)
+automato_brain.menu.PartitionScheme.minimal.build.partitions=minimal
+automato_brain.menu.PartitionScheme.no_ota=No OTA (2MB APP/2MB SPIFFS)
+automato_brain.menu.PartitionScheme.no_ota.build.partitions=no_ota
+automato_brain.menu.PartitionScheme.no_ota.upload.maximum_size=2097152
+automato_brain.menu.PartitionScheme.noota_3g=No OTA (1MB APP/3MB SPIFFS)
+automato_brain.menu.PartitionScheme.noota_3g.build.partitions=noota_3g
+automato_brain.menu.PartitionScheme.noota_3g.upload.maximum_size=1048576
+automato_brain.menu.PartitionScheme.noota_ffat=No OTA (2MB APP/2MB FATFS)
+automato_brain.menu.PartitionScheme.noota_ffat.build.partitions=noota_ffat
+automato_brain.menu.PartitionScheme.noota_ffat.upload.maximum_size=2097152
+automato_brain.menu.PartitionScheme.noota_3gffat=No OTA (1MB APP/3MB FATFS)
+automato_brain.menu.PartitionScheme.noota_3gffat.build.partitions=noota_3gffat
+automato_brain.menu.PartitionScheme.noota_3gffat.upload.maximum_size=1048576
+automato_brain.menu.PartitionScheme.huge_app=Huge APP (3MB No OTA/1MB SPIFFS)
+automato_brain.menu.PartitionScheme.huge_app.build.partitions=huge_app
+automato_brain.menu.PartitionScheme.huge_app.upload.maximum_size=3145728
+
+# Menu: CPU Frequency
+automato_brain.menu.CPUFreq.160=160MHz (WiFi)
+automato_brain.menu.CPUFreq.160.build.f_cpu=160000000L
+automato_brain.menu.CPUFreq.80=80MHz (WiFi)
+automato_brain.menu.CPUFreq.80.build.f_cpu=80000000L
+automato_brain.menu.CPUFreq.40=40MHz
+automato_brain.menu.CPUFreq.40.build.f_cpu=40000000L
+automato_brain.menu.CPUFreq.20=20MHz
+automato_brain.menu.CPUFreq.20.build.f_cpu=20000000L
+automato_brain.menu.CPUFreq.10=10MHz
+automato_brain.menu.CPUFreq.10.build.f_cpu=10000000L
+
+# Menu: Flash Mode
+automato_brain.menu.FlashMode.qio=QIO
+automato_brain.menu.FlashMode.qio.build.flash_mode=qio
+automato_brain.menu.FlashMode.qio.build.boot=qio
+automato_brain.menu.FlashMode.dio=DIO
+automato_brain.menu.FlashMode.dio.build.flash_mode=dio
+automato_brain.menu.FlashMode.dio.build.boot=dio
+automato_brain.menu.FlashMode.qout=QOUT
+automato_brain.menu.FlashMode.qout.build.flash_mode=qout
+automato_brain.menu.FlashMode.qout.build.boot=qout
+automato_brain.menu.FlashMode.dout=DOUT
+automato_brain.menu.FlashMode.dout.build.flash_mode=dout
+automato_brain.menu.FlashMode.dout.build.boot=dout
+
+# Menu: Flash Frequency
+automato_brain.menu.FlashFreq.80=80MHz
+automato_brain.menu.FlashFreq.80.build.flash_freq=80m
+automato_brain.menu.FlashFreq.40=40MHz
+automato_brain.menu.FlashFreq.40.build.flash_freq=40m
+
+# Menu: Upload Speed
+automato_brain.menu.UploadSpeed.921600=921600
+automato_brain.menu.UploadSpeed.921600.upload.speed=921600
+automato_brain.menu.UploadSpeed.115200=115200
+automato_brain.menu.UploadSpeed.115200.upload.speed=115200
+automato_brain.menu.UploadSpeed.256000.windows=256000
+automato_brain.menu.UploadSpeed.256000.upload.speed=256000
+automato_brain.menu.UploadSpeed.230400.windows.upload.speed=256000
+automato_brain.menu.UploadSpeed.230400=230400
+automato_brain.menu.UploadSpeed.230400.upload.speed=230400
+automato_brain.menu.UploadSpeed.460800.linux=460800
+automato_brain.menu.UploadSpeed.460800.macosx=460800
+automato_brain.menu.UploadSpeed.460800.upload.speed=460800
+automato_brain.menu.UploadSpeed.512000.windows=512000
+automato_brain.menu.UploadSpeed.512000.upload.speed=512000
+
+# Menu: Debug Level
+automato_brain.menu.DebugLevel.none=None
+automato_brain.menu.DebugLevel.none.build.code_debug=0
+automato_brain.menu.DebugLevel.error=Error
+automato_brain.menu.DebugLevel.error.build.code_debug=1
+automato_brain.menu.DebugLevel.warn=Warn
+automato_brain.menu.DebugLevel.warn.build.code_debug=2
+automato_brain.menu.DebugLevel.info=Info
+automato_brain.menu.DebugLevel.info.build.code_debug=3
+automato_brain.menu.DebugLevel.debug=Debug
+automato_brain.menu.DebugLevel.debug.build.code_debug=4
+automato_brain.menu.DebugLevel.verbose=Verbose
+automato_brain.menu.DebugLevel.verbose.build.code_debug=5
+
+# Menu: Erase Flash
+automato_brain.menu.EraseFlash.none=Disabled
+automato_brain.menu.EraseFlash.none.upload.erase_cmd=
+automato_brain.menu.EraseFlash.all=Enabled
+automato_brain.menu.EraseFlash.all.upload.erase_cmd=-e
+
+##############################################################
