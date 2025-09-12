@@ -1,6 +1,15 @@
 # Automato Boards Definition
 # Based on ESP32-C6-MINI-1 module
 
+menu.UploadSpeed=Upload Speed
+menu.CPUFreq=CPU Frequency
+menu.FlashFreq=Flash Frequency
+menu.FlashMode=Flash Mode
+menu.FlashSize=Flash Size
+menu.PartitionScheme=Partition Scheme
+menu.DebugLevel=Core Debug Level
+menu.EraseFlash=Erase All Flash Before Sketch Upload
+
 ##############################################################
 
 automato_brain.name=Automato Brain Board
