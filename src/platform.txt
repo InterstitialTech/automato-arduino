@@ -16,13 +16,13 @@ compiler.sdk.path={runtime.platform.path}/tools/sdk
 compiler.cpreprocessor.flags=-DESP32 -DCORE_DEBUG_LEVEL={build.code_debug} -DARDUINO_RUNNING_CORE={build.running_core} -DARDUINO_EVENT_RUNNING_CORE={build.event_running_core} {build.defines}
 
 compiler.c.cmd=riscv32-esp-elf-gcc
-compiler.c.flags=-std=gnu17 -Os -g3 -ffunction-sections -fdata-sections -fno-jump-tables -fstrict-volatile-bitfields -mlongcalls -nostdlib -Wpointer-arith -w -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wno-unused-parameter -Wno-sign-compare -ggdb -O2 -MMD -c
+compiler.c.flags=-std=gnu17 -Os -g3 -ffunction-sections -fdata-sections -fno-jump-tables -fstrict-volatile-bitfields -nostdlib -Wpointer-arith -w -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wno-unused-parameter -Wno-sign-compare -ggdb -O2 -MMD -c
 
 compiler.cpp.cmd=riscv32-esp-elf-g++
-compiler.cpp.flags=-std=gnu++17 -Os -g3 -Wpointer-arith -fexceptions -fstack-protector -ffunction-sections -fdata-sections -fno-jump-tables -fstrict-volatile-bitfields -mlongcalls -nostdlib -w -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wno-unused-parameter -Wno-sign-compare -fno-rtti -MMD -c
+compiler.cpp.flags=-std=gnu++17 -Os -g3 -Wpointer-arith -fexceptions -fstack-protector -ffunction-sections -fdata-sections -fno-jump-tables -fstrict-volatile-bitfields -nostdlib -w -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wno-unused-parameter -Wno-sign-compare -fno-rtti -MMD -c
 
 compiler.S.cmd=riscv32-esp-elf-gcc
-compiler.S.flags=-c -g3 -x assembler-with-cpp -MMD -mlongcalls
+compiler.S.flags=-c -g3 -x assembler-with-cpp -MMD
 
 compiler.c.elf.cmd=riscv32-esp-elf-gcc
 compiler.c.elf.flags=-nostdlib -Wl,--gc-sections -Wl,-static -Wl,--undefined=uxTopUsedPriority -u __cxa_guard_dummy -u __cxx_fatal_exception
