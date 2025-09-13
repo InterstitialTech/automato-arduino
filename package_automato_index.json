@@ -14,8 +14,8 @@
           "architecture": "esp32",
           "version": "0.1.0",
           "category": "ESP32",
-          "url": "https://github.com/InterstitialTech/automato-arduino/releases/download/v0.1.0-rc.4/automato-arduino_package-v0.1.0-rc.4.zip",
-          "archiveFileName": "automato-arduino_package-v0.1.0-rc.4.zip",
+          "url": "https://github.com/InterstitialTech/automato-arduino/releases/download/v0.1.0/automato-arduino_package-v0.1.0.zip",
+          "archiveFileName": "automato-arduino_package-v0.1.0.zip",
           "checksum": "SHA-256:3e343f88b21f77bc2c6bd885afa3d874ce3801dd31d617acb0cdd12111161924",
           "size": "81355638",
           "boards": [
