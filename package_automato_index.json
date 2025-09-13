@@ -16,8 +16,8 @@
           "category": "ESP32",
           "url": "https://github.com/InterstitialTech/automato-arduino/releases/download/v0.1.0-rc.3/automato-arduino_package-v0.1.0-rc.3.zip",
           "archiveFileName": "automato-arduino_package-v0.1.0-rc.3.zip",
-          "checksum": "SHA-256:c8b10b9cd3740d5baa211004818ff7925c9bbe9cc039812f75b1b0191a3b037c",
-          "size": "81355203",
+          "checksum": "SHA-256:3e343f88b21f77bc2c6bd885afa3d874ce3801dd31d617acb0cdd12111161924",
+          "size": "81355638",
           "boards": [
             {
               "name": "Automato Brain Board"
