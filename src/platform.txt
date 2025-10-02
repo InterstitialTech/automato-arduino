@@ -1,5 +1,5 @@
 name=Automato Board Package
-version=0.1.0
+version=0.1.2
 
 tools.esp32-arduino-libs.path={runtime.tools.esp32-arduino-libs.path}
 

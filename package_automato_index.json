@@ -12,12 +12,12 @@
         {
           "name": "Automato",
           "architecture": "esp32",
-          "version": "0.1.0",
+          "version": "0.1.2",
           "category": "ESP32",
-          "url": "https://github.com/InterstitialTech/automato-arduino/releases/download/v0.1.1/automato-arduino_package-v0.1.1.zip",
-          "archiveFileName": "automato-arduino_package-v0.1.1.zip",
-          "checksum": "SHA-256:17f502e041ac96a0ade34140415c3ee4475e58504825e187c9cd857431abffa9",
-          "size": "83375779",
+          "url": "https://github.com/InterstitialTech/automato-arduino/releases/download/v0.1.2/automato-arduino_package-v0.1.2.zip",
+          "archiveFileName": "automato-arduino_package-v0.1.2.zip",
+          "checksum": "SHA-256:549c58736c5afc838f712533c31d511beb84b4d3b2b87b11d565604e7776244f",
+          "size": "83375990",
           "boards": [
             {
               "name": "Automato Sensor Board"
